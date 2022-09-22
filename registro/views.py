@@ -25,7 +25,7 @@ def usuario(request): # se define la funcion para ver los usuarios
     return render (request, 'registro/usuario.html', context) # se renderiza la pagina
 
 
-#@login_required(login_url='/login/') # se define la funcion para ver los vehiculos
+@login_required(login_url='/login/') # se define la funcion para ver los vehiculos
 def vehiculo(request): # se define la funcion para ver los vehiculos
     vehiculo_db = Vehículo.objects.all() # se carga la base de datos para ver los vehiculos
     usuario_db = Usuario.objects.all() # se carga la base de datos para el select de usuario # se carga el formulario
@@ -86,7 +86,7 @@ def activarusuario(request,id): # se define la funcion para eliminar un usuario
         'txt_action':txt_action,
         } # se define el contexto
     return render (request,'registro/activar/activarusuario.html', context )
-#login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def vehiculoDelete(request,id):
     vehiculo_d = Vehículo.objects.get(id=id) # se obtiene el vehiculo
     vehiculo_db = Vehículo.objects.all() # se carga la base de datos para ver los vehiculos
@@ -107,7 +107,7 @@ def vehiculoDelete(request,id):
         'txt_action': txt_action
         }
     return render (request,'registro/eliminar/eliminarvehiculo.html', context )
-
+@login_required(login_url='/login/')
 def activarvehiculo(request,id): # se define la funcion para eliminar un usuario
     vehiculo_d = Vehículo.objects.get(id=id) # se obtiene el vehiculo
     vehiculo_db = Vehículo.objects.all() # se carga la base de datos para ver los vehiculos
@@ -148,7 +148,7 @@ def editarUsuario(request,id): # se define la funcion para editar un usuario
 
 # LOGICA DE VEHICULO (EDITAR, ELIMINAR  Y OTRAS FUNCIONES)
 
-#@login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def editarVehiculo(request,id): # se define la funcion para
     edit_vehiculo = Vehículo.objects.get(id=id) # se obtiene el vehiculo
     formulario_vehiculo = vehiculoForm(request.POST or None, instance=edit_vehiculo) # se carga el formulario
