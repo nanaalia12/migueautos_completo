@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 class Usuario(models.Model):
     nombre = models.CharField(max_length=45, blank=False, unique= False, verbose_name=u"Nombre")
     apellido = models.CharField(max_length=45, blank=False, unique= False, verbose_name=u"Apellido")
-    identificacion=models.CharField(max_length=11, blank=False, unique=False, verbose_name="Numero de identificación")
+    identificacion=models.CharField(max_length=11, blank=True, unique=False, verbose_name="Numero de identificación")
     telefono = models.CharField(max_length=13, blank=True, unique=True, verbose_name="Numero de celular")
     class Estado(models.TextChoices):
         ACTIVO='Activo', _('Activo')
@@ -29,7 +29,7 @@ class Vehículo(models.Model):
         REGULAR = 'R', _('Regular (R)')
         BIEN = 'B', _('Bien (B)')
         MAL = 'M', _('Mal (M)')
-    condición = models.CharField(max_length=10,choices=Condición.choices, verbose_name=u"Condición")
+    condición = models.CharField(max_length=12,choices=Condición.choices,default=Condición.BIEN, verbose_name=u"Condición")
     usuario=models.ForeignKey(Usuario,on_delete=models.SET_NULL, null=True,verbose_name=u"Usuario")
     class Estado(models.TextChoices):
         ACTIVO='Activo', _('Activo')

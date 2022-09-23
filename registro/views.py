@@ -53,8 +53,10 @@ def usuariodelete(request,id): # se define la funcion para eliminar un usuario
     formulario = usuarioForm() # se carga el formulario
     txt_action = 'este usuario'
     if request.method == 'POST' and 'aceptar' in request.POST: # si el metodo es post y el formulario es form1
-        delete_user.delete() # se elimina el usuario
-        messages.success(request,'Usuario %s ha sido eliminado exitosamente' %delete_user.nombre) # se muestra un mensaje de exito
+        Usuario.objects.filter(id=id).update(
+                   estado='Inactivo',
+            ) #se elimina el usuario
+        messages.success(request,'El Usuario %s esta inactivo' %delete_user.nombre) # se muestra un mensaje de exito
         return redirect ('usuario') # se redirecciona a la url
     if request.method == 'POST' and 'cancelar' in request.POST: # si el metodo es post y el formulario es form2
         return redirect ('usuario') # se redirecciona a la url
@@ -65,14 +67,36 @@ def usuariodelete(request,id): # se define la funcion para eliminar un usuario
         } # se define el contexto
     return render (request,'registro/eliminar/eliminarusuario.html', context ) # se renderiza la pagina
 @login_required(login_url='/login/')
+def activarusuario(request,id): # se define la funcion para eliminar un usuario
+    delete_user = Usuario.objects.get(id=id) # se obtiene el usuario
+    usuario_db = Usuario.objects.all() # se carga la base de datos
+    formulario = usuarioForm() # se carga el formulario
+    txt_action = 'este usuario'
+    if request.method == 'POST' and 'aceptar' in request.POST: # si el metodo es post y el formulario es form1
+        Usuario.objects.filter(id=id).update(
+                   estado='Activo',
+            ) #se elimina el usuario
+        messages.success(request,'El usuario %s esta activo' %delete_user.nombre) # se muestra un mensaje de exito
+        return redirect ('usuario') # se redirecciona a la url
+    if request.method == 'POST' and 'cancelar' in request.POST: # si el metodo es post y el formulario es form2
+        return redirect ('usuario') # se redirecciona a la url
+    context = {
+        'usuario_db': usuario_db,
+        'formulario': formulario,
+        'txt_action':txt_action,
+        } # se define el contexto
+    return render (request,'registro/activar/activarusuario.html', context )
+@login_required(login_url='/login/')
 def vehiculoDelete(request,id):
     vehiculo_d = Vehículo.objects.get(id=id) # se obtiene el vehiculo
     vehiculo_db = Vehículo.objects.all() # se carga la base de datos para ver los vehiculos
-    txt_action = 'este vehiculo' # se define el texto de la accion
+    txt_action = 'Este vehículo' # se define el texto de la accion
     formulario = vehiculoForm() # se carga el formulario
     if request.method == 'POST' and 'aceptar' in request.POST: # si el metodo es post y el formulario es
-        vehiculo_d.delete() # se elimina el vehiculo
-        messages.success(request,'Vehiculo %s ha sido eliminado exitosamente' %vehiculo_d.placa) # se muestra un mensaje de exito
+        Vehículo.objects.filter(id=id).update(
+                   estado='Inactivo',
+             ) 
+        messages.success(request,'El vehículo %s esta inactivo' %vehiculo_d.placa) # se muestra un mensaje de exito
         return redirect ('vehiculo') # se redirecciona a la url
     if request.method == 'POST' and 'cancelar' in request.POST: # si el metodo es post y el formulario es form2
         #no se realiza ninguna accion por que el cliente decidio no eliminar el vehiculo
@@ -83,7 +107,28 @@ def vehiculoDelete(request,id):
         'txt_action': txt_action
         }
     return render (request,'registro/eliminar/eliminarvehiculo.html', context )
-
+@login_required(login_url='/login/')
+def activarvehiculo(request,id): # se define la funcion para eliminar un usuario
+    vehiculo_d = Vehículo.objects.get(id=id) # se obtiene el vehiculo
+    vehiculo_db = Vehículo.objects.all() # se carga la base de datos para ver los vehiculos
+    txt_action = 'este vehiculo' # se define el texto de la accion
+    formulario = vehiculoForm()
+    if request.method == 'POST' and 'aceptar' in request.POST: # si el metodo es post y el formulario es
+        Vehículo.objects.filter(id=id).update(
+                   estado='Activo',
+             ) 
+        messages.success(request,'El vehículo %s esta activo' %vehiculo_d.placa) # se muestra un mensaje de exito
+        return redirect ('vehiculo') # se redirecciona a la url
+    if request.method == 'POST' and 'cancelar' in request.POST: # si el metodo es post y el formulario es form2
+        #no se realiza ninguna accion por que el cliente decidio no eliminar el vehiculo
+        return redirect ('vehiculo') # se redirecciona a la url
+    context = {
+        'vehiculo_db': vehiculo_db,
+        'formulario': formulario,
+        'txt_action': txt_action
+        }
+        # se define el contexto
+    return render (request,'registro/activar/activarvehiculo.html', context )
 #Editar usuario o vehiculo
 @login_required(login_url='/login/')
 def editarUsuario(request,id): # se define la funcion para editar un usuario
