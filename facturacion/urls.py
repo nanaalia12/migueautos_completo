@@ -8,7 +8,7 @@ from django.urls import path
 urlpatterns = [
     
     path ('generar/',generar_factura,name='generar_factura'),
-    path('ver/<int:pk>',carrito, name="factura"),
+    path('ver/',carrito, name="factura"),
     
     
     path('compras/', tiendas, name="clean_shop"),
@@ -19,6 +19,7 @@ urlpatterns = [
     path('eliminar/<int:producto_id>/', eliminar_producto, name="Del"),
     path('restar/<int:producto_id>/', restar_producto, name="Sub"),
     path('limpiar/', limpiar_carrito, name="CLS"),
+    path('limpiar/index', limpiar_factura, name="clsindex"),
     
     # path('ver/<int:id>',add_cart, name="Tienda"),
     

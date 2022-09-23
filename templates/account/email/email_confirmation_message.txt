@@ -3,6 +3,6 @@
 {% load i18n %}
 
 {% block content %}{% autoescape off %}{% user_display user as user_display %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
-Está recibiendo este correo electrónico porque el usuario {{ user_display }} ha dado su dirección de correo electrónico para registrar una cuenta en{{ site_domain }}.
+Está recibiendo este correo electrónico porque el usuario {{ user_display }} ha dado su dirección de correo electrónico para registrar una cuenta en MigueAutos.
 
-Para confirmar el correo diríjanse{{ activate_url }}.{% endblocktrans %}{% endautoescape %}{% endblock %}
+Para confirmar el correo diríjanse {{ activate_url }}.{% endblocktrans %}{% endautoescape %}{% endblock %}

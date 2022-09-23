@@ -1,7 +1,7 @@
-{% load i18n %}{% autoescape off %}{% blocktrans with MigueAutos=current_site.name %}Hola somos {{ MigueAutos}}!{% endblocktrans %}
+{% load i18n %}{% autoescape off %}{% blocktrans with MigueAutos=current_site.name %}Hola somos MigueAutos!{% endblocktrans %}
 
 {% block content %}{% endblock %}
 
-{% blocktrans with MigueAutos=current_site.name site_domain=current_site.domain %}Gracias por utilizar {{ MigueAutos }}!
-{{ site_domain }}{% endblocktrans %}
+{% blocktrans with MigueAutos=current_site.name site_domain=current_site.domain %}Gracias por utilizar MigueAutos !
+MigueAutos{% endblocktrans %}
 {% endautoescape %}

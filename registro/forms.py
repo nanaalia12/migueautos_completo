@@ -5,21 +5,12 @@ from .models import Usuario, Vehículo
 class usuarioForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = '__all__'
-        
+        fields = ['nombre','apellido','identificacion','telefono']        
 class vehiculoForm(forms.ModelForm):
     class Meta:
         model = Vehículo
-        fields = ['placa','modelo','color','estado','usuario']
-        # widgets = {
-            #  'fecha':forms.DateInput(
-                #  attrs = {
-                #  'readonly':True,
-                    # 'hidden': True,
-                    # 'placeholder': 'hola',
-                    # 'required': False
-                #   }
-                #  )},
+        fields = ['placa','modelo','color','condición','usuario']
+
              
             
     

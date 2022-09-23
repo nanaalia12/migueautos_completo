@@ -1,10 +1,17 @@
 {% extends "_base.html" %}
 {% load static %}
+{% load tailwind_filters %}
 {% block title %} Usuario {% endblock title %}
 
 {% block content %}
-
-<div class=" flex flex-wrap justify-center gap-2 mx-auto overflow-hidden">
+<button data-tooltip-target="tooltip-flecha" data-tooltip-trigger="hover" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-0 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"  onclick = "history.back ()">
+    <img src="{% static 'img/flecha-izquierda.png' %}" class="h-6 mr-3 sm:h-9" alt="">
+  </button>
+  <div id="tooltip-flecha" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+    Volver
+    <div class="tooltip-arrow" data-popper-arrow></div>
+</div>
+<div class=" flex flex-wrap justify-center gap-2 mx-auto overflow-hidden ">
     <div
         class="w-full py-5 my-1 overflow-hidden sm:my-2 sm:px-2 sm:w-full md:my-1 md:px-1 md:w-1/2 lg:my-1 lg:px-1 lg:w-1/2 xl:my-2 xl:px-2 xl:w-1/2">
 
@@ -14,9 +21,10 @@
         </h1>
         <!--Card-->
         <!-- form -->
-        <form enctype="multipart/form-data" method="POST">
-
-            <input type="hidden" name="csrfmiddlewaretoken"
+        <form method="POST">
+            {% csrf_token %}               
+            {{formulario|crispy}}
+           <!-- <input type="hidden" name="csrfmiddlewaretoken"
                 value="Bz4H8ZqcLL9aar8clUzq3MP5mkAz4lNcIqg1SL0EPCFM0C2GZyhBYGdN7OdOpjeA" />
                 {% if formulario.telefono.errors %}
                 <div id="toast-warning" class="flex items-center p-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
@@ -51,20 +59,20 @@
             <div id="div_id_telefono" class="mb-3">
                 
                 <label for="id_telefono" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Numero de celular
+                    Número de celular
                 </label>
                 <input type="text" name="telefono" value="{{edit.telefono}}" maxlength="13"
                     class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none textinput focus:outline-none"
                     id="id_telefono" />
             </div>
-
+        -->
             <div class="flex justify-center">
                 <button type="submit"
                     class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
                     value="Enviar informacion">
-                    AGREGAR USUARIO
+                    Agregar usuario
                 </button>
-                {% csrf_token %}
+               
             </div>
 
         </form>
@@ -86,9 +94,14 @@
                                     Apellido
                                 </th>
                                 <th scope="col" class="px-6 py-4 text-sm font-medium text-black">
-                                    Telefono
+                                    Número de identificación
                                 </th>
-
+                                <th scope="col" class="px-6 py-4 text-sm font-medium text-black">
+                                    Número de celular
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-sm font-medium text-black">
+                                    Estado
+                                </th>
                                 <th scope="col" class="px-6 py-4 text-sm font-medium text-black">
                                     Opciones
                                 </th>
@@ -103,11 +116,13 @@
                                     {{usuario.nombre}}
                                 </th>
                                 <td class="px-6 py-4">{{usuario.apellido}}</td>
+                                <td class="px-6 py-4">{{usuario.identificacion}}</td>
                                 <td class="px-6 py-4">{{usuario.telefono}}</td>
+                                <td class="px-6 py-4">{{usuario.estado}}</td>
 
                                 <td class="flex justify-around px-6 py-4 text-right">
                                     {% comment %} Editar {% endcomment %}
-                                    <a href="{% url 'editarUsuario' usuario.id %}" data-modal-toggle="popup-modal"
+                                    <a href="{% url 'editarUsuario' usuario.id %}" data-modal-toggle="popup-modal" title="Inactivo"
                                         class="font-medium text-light-white md:hover:text-blue-700 dark:text-blue-500"><svg
                                             xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
                                             fill="currentColor">
@@ -116,17 +131,29 @@
                                         </svg>
                                     </a>
                                     {% comment %} Eliminar {% endcomment %}
-                                        <a href="{% url 'eliminarusuario' usuario.id %}"
+
+                                    {% if usuario.estado == 'Activo' %}
+        
+
+                                        <a href="{% url 'eliminarusuario' usuario.id %}"  data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" type="button" 
                                             class="font-medium text-light-white md:hover:text-blue-700 dark:text-blue-500 hover:underline"
                                             type="button" data-modal-toggle="popup-modal">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
-                                                fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
+                                            
+                                            <svg class="w-6 h-6"  fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                         </a>
-                                
+                                        <div id="tooltip-bottom" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                           Inactivar usuario
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
+                                    {% else  %}
+                                    <a href="{% url 'activarusuario' usuario.id %}" data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" type="button" class=" font-medium text-light-white md:hover:text-blue-700 dark:text-blue-500 hover:underline"type="button" data-modal-toggle="popup-modal">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </a>
+                                    <div id="tooltip-bottom" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                        Activar usuario
+                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                 </div>
+                                    {% endif %}
                                 </td>
                             </tr>
                             {% endfor %}

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount'
 ]
+
+
 #Formularios con crispy
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind" #De donde salen los estilos para los forms de tailwind
 
@@ -126,7 +128,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': '1122',
+        'PASSWORD': 'aKIHOKO0603',
     }
 }
 
@@ -170,7 +172,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    )
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -178,10 +186,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#Envio de correos en modo de desarrollo 
+#Envio de correos
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'migueautos2022@gmail.com'
-EMAIL_HOST_PASSWORD = 'bnjmmvgmhqhmpsmk'
+EMAIL_HOST_USER = 'autosmigue22@gmail.com'
+EMAIL_HOST_PASSWORD = 'tfnihaixddlvfkqy'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
