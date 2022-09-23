@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     #Apps del proyecto
     'miproyecto',
     'registro',
-
+    'producto',                                     
     
     #Librerias adicionales
     'compressor', #Adicional tailwind
@@ -125,7 +125,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': 'aKIHOKO0603',
+        'PASSWORD': '1122',
     }
 }
 
