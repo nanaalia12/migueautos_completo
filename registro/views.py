@@ -34,7 +34,7 @@ def vehiculo(request): # se define la funcion para ver los vehiculos
         placa = request.POST.get('placa') 
         vehiculo.save() # se guarda el formulario
         messages.success(request,'¡Vehiculo %s ha sido registrado exitosamente!'%placa) # se muestra un mensaje de exito
-        return redirect('insumo') # se redirecciona a la url
+        return redirect('producto-crearproducto') # se redirecciona a la url
     else:
         print ('no entra')
     context = { # se define el contexto
