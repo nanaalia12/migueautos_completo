@@ -12,6 +12,7 @@ from miproyecto.models import Backup
 def index(request):
     day  = timezone.now()
     hour = timezone.now()
+    #prueba numero a
     #formatedHour = hour.strftime("%Y/%m/%d %H:%M:%S")
     formatedDay  = strftime("%d/%m/%Y")
     formatedHour = strftime("%r")
