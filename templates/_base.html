@@ -6,14 +6,19 @@
 {% user_display user as user_display %}
 <!DOCTYPE html>
 <html lang="es">
-    
-    <head>
-        <link rel="icon" type="image/jpg" href="{% static 'img/logomigueautos.png' %}"/>
+
+<head>
+
+    <link rel="stylesheet" href="{% static 'libs/select2-4.0.13/css/select2.min.css' %}">
+    <script rel="stylesheet" href="{% static 'libs/select2-4.0.13/js/select2.min.js' %}"></script>
+
+    <link rel="icon" type="image/jpg" href="{% static 'img/logomigueautos.png' %}" />
     <script type="text/javascript" src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
     <link rel="stylesheet" type="text/css"
         href="{% static 'js/datatables/DataTables-1.12.1/css/jquery.dataTables.css' %}" />
     <link rel="stylesheet" type="text/css"
         href="{% static 'js/datatables/Buttons-2.2.3/css/buttons.dataTables.css' %}" />
+
     <link rel="stylesheet" type="text/css"
         href="{% static 'js/datatables/Responsive-2.3.0/css/responsive.dataTables.css' %}" />
     <link rel="stylesheet" type="text/css"
@@ -21,220 +26,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
     {% compress css %}
     <link rel="stylesheet" href="{% static 'src/output.css' %}">
     {% endcompress %}
-
-
-
-
-    
     <script>
         // It's best to inline this in `head` to avoid FOUC (flash of unstyled content) when changing pages or themes
         if (
-          localStorage.getItem('color-theme') === 'dark' ||
-          (!('color-theme' in localStorage) &&
-            window.matchMedia('(prefers-color-scheme: dark)').matches)
+            localStorage.getItem('color-theme') === 'dark' ||
+            (!('color-theme' in localStorage) &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches)
         ) {
-          document.documentElement.classList.add('dark');
+            document.documentElement.classList.add('dark');
         } else {
-          document.documentElement.classList.remove('dark');
+            document.documentElement.classList.remove('dark');
         }
-      </script>
+    </script>
 </head>
 
 <body class="m-0 bg-green-50 dark:bg-slate-800">
 
 
-    <nav class="bg-white print:hidden  border-gray-200 px-2 md:px-4 py-2.5 dark:bg-gray-900">
-        <div class="flex flex-col">
-        <div class="flex flex-wrap items-center justify-between flex-col-1">
-
-                <button
-      id="theme-toggle"
-      type="button"
-      class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
-    >
-      <svg
-        id="theme-toggle-dark-icon"
-        class="hidden w-5 h-5"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-        ></path>
-      </svg>
-      <svg
-        id="theme-toggle-light-icon"
-        class="hidden w-5 h-5"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-        ></path>
-      </svg>
-    </button>
-            <a href="{% url 'index' %}" class="flex items-center">
-                <img src="{% static 'img/logomigueautos.png' %}" class="h-6 mr-3 sm:h-9" alt="Migueautos Logo">
-                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Migueautos</span>
-            </a>
-            {% if messages %}
-            {% for message in messages %}
-            <div class="flex items-center justify-between w-full md:w-auto">
-                <div class="flex items-center">
-                    <div class="flex items-center">
-                        <svg class="w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        
-                    </div>
-                    <div class="flex items-center">
-                        <span
-                            class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">{{ message }}</span>
-                    </div>
-                </div>
-                
-            </div>
-            {% endfor %}
-            {% endif %}
-
-            <div class="flex items-center md:order-2">
-                
-                {% if user.is_authenticated %}
-
-                <button type="button" data-modal-toggle="popup-modal-1"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Cerrar
-                    sesión</button>
-                <div id="popup-modal-1" tabindex="-1"
-                    class="fixed top-0 left-0 right-0 z-50 hidden overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-                    <div class="relative w-full h-full max-w-md p-4 md:h-auto">
-                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                            <button type="button"
-                                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                                data-modal-toggle="popup-modal-1">
-                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <span class="sr-only">Close modal</span>
-                            </button>
-                            <div class="p-6 text-center">
-                                <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Esta seguro que
-                                    Desea cerrar sesion?</h3>
-                                <a data-modal-toggle="popup-modal-1" href="{% url 'account_logout' %}"
-                                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                                    Si, estoy seguro
-                                </a>
-                                <button data-modal-toggle="popup-modal-1" type="button"
-                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
-                                    Cancelar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% else %}
-                <a href="{% url 'account_login' %}"
-                    class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Iniciar
-                    sesión</a>
-                <a href="{% url 'account_signup' %}"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Registrarse</a>
-                {% endif %}
-                <button data-collapse-toggle="mega-menu" type="button"
-                    class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                    aria-controls="mega-menu" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-            </div>
-            <div id="mega-menu" class="items-center justify-between hidden w-full text-sm md:flex md:w-auto md:order-1">
-                <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
-                    <li>
-                        <a href="{% url 'index' %}"
-                            class="block py-2 pl-3 pr-4 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
-                            aria-current="page">Inicio</a>
-                    </li>
-                    
-                        
-                        <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Módulos <svg class="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdownNavbar" class="z-10 grid hidden w-auto grid-cols-2 text-sm font-normal bg-white border border-gray-100 divide-y divide-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols- dark:bg-gray-700 dark:divide-gray-600" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(105px, 70px);">
-                            <ul class="text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                              <li>
-                                <a class="block px-4 py-2 text-sm text-gray-700 bg-gray-100 disabled dark:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Registro</a>
-                              </li>
-                              <li>
-                                <a href="{% url 'usuario' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Usuarios</a>
-                              </li>
-                              <li>
-                                <a href="{% url 'vehiculo' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Vehículos</a>
-                              </li>
-                              <li>
-                                <a href="{% url 'insumo' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Insumos</a>
-                              </li>
-                            </ul>
-                            <ul>
-                                
-                                <li>    
-                                    <a class="block px-4 py-2 text-sm text-gray-700 bg-gray-100 disabled dark:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Facturación</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'generar_factura' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Generar</a>
-                                </li>
-                                <br/>
-                                <li>    
-                                    <a class="block px-4 py-2 text-sm text-gray-700 bg-gray-100 disabled dark:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Copia de seguridad</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'backup' 'U' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Generar </a>
-                                </li>
-                            </ul>
-                                
-                            </div>
-                        </ul>
-                        </div>
-            </div>
-        </div>
-    </div>
-
-    </nav>
+    {% include 'componentes/navbar.html' %}
 
 
-    
+
     <div class="container min-h-screen mx-auto mt-4">
         {% block content %}
         {% endblock content %}
     </div>
-    <div class="acces print:hidden">
-        {% include 'componentes/acces.html' %} 
+    
+    
+    <div data-tooltip-target="tooltip-acces" data-tooltip-trigger="hover" class="acces print:hidden">
+        {% include 'componentes/acces.html' %}
     </div>
 
     
-</div>
+    <div id="tooltip-acces" role="tooltip"
+        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white rounded-lg shadow-sm opacity-0 bg-slate-400 tooltip dark:bg-gray-700">
+        Accesibilidad
+        <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
 
 
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}" media="all">
-<script type="text/javascript" src="{% static 'js/toastr.min.js' %}"></script>  
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}" media="all">
+    <script type="text/javascript" src="{% static 'js/toastr.min.js' %}"></script>
 
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     <script type="text/javascript" src="{% static 'js/datatables/JSZip-2.5.0/jszip.js' %}"></script>
@@ -246,6 +85,8 @@
     <script type="text/javascript" src="{% static 'js/datatables/Buttons-2.2.3/js/buttons.colVis.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/datatables/Buttons-2.2.3/js/buttons.html5.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/datatables/Buttons-2.2.3/js/buttons.print.js' %}"></script>
+
+
     <script type="text/javascript"
         src="{% static 'js/datatables/Responsive-2.3.0/js/dataTables.responsive.js' %}"></script>
     <script type="text/javascript"
@@ -258,7 +99,7 @@
     <script type="text/javascript" src="{% static 'js/facturacion.js' %}"></script>
 </body>
 
-<footer class=" block w-full p-4 bg-white rounded-lg shadow print:hidden md:px-6 md:py-8 dark:bg-gray-900">
+<footer class="block w-full p-4 bg-white rounded-lg shadow print:hidden md:px-6 md:py-8 dark:bg-gray-900">
     <span class="block text-sm text-gray-500 button sm:text-center dark:text-gray-400">
         <font style="vertical-align: inherit;">
             <font style="vertical-align: inherit;">© 2022 </font>
@@ -274,4 +115,5 @@
         </font>
     </span>
 </footer>
+
 </html>

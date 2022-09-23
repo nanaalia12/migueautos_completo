@@ -22,8 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('registro/',include('registro.urls')),
-    path('registro/',include('insumo.urls')),
-    path('factura/',include('facturacion.urls')),
+    path('producto/', include('producto.urls')),
+
     path('', index, name='index'),
     path('backup/<str:tipo>/', backup , name="backup"),
 ]
