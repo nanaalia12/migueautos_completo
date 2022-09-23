@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     #Apps del proyecto
     'miproyecto',
     'registro',
-    'insumo',
+
     'facturacion',
     
     
