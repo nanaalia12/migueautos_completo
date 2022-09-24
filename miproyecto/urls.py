@@ -23,7 +23,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('registro/',include('registro.urls')),
     path('producto/', include('producto.urls')),
-
+    path('factura/', include('facturacion.urls')),
     path('', index, name='index'),
     path('backup/<str:tipo>/', backup , name="backup"),
 ]

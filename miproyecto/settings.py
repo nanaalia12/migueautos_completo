@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'miproyecto',
     'registro',
     'producto',                                     
-    
+    'facturacion',
     #Librerias adicionales
     'compressor', #Adicional tailwind
     'allauth',# Registros de sesion

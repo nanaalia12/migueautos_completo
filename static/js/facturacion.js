@@ -7,6 +7,10 @@ $(document).ready(function() {
     }).tigger('change');
 });
 
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+
 // En la carga de la página o al cambiar de tema, es mejor agregar en línea en `head` para evitar FOUC
 if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark')
