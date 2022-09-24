@@ -28,12 +28,12 @@ def index(request):
 @login_required(login_url='/login/')
 def exportar_datos():
     fecha=date.today()
-    os.system(f"mysqldump --add-drop-table --column-statistics=0 -u root --password=0000 migueautos> static/backup/BKP_{fecha}.sql")
+    os.system(f"mysqldump --add-drop-table --column-statistics=0 -u root --password=1122 migueautos> static/backup/BKP_{fecha}.sql")
    
 @login_required(login_url='/login/')
 def importar_datos(archivo):
     try:
-        os.system(f"mysql -u root password=0000 migueautos< {archivo[1:]}")
+        os.system(f"mysql -u root password=1122 migueautos< {archivo[1:]}")
     except:
         print("Problemas al importar")
        

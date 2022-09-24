@@ -1,0 +1,40 @@
+{% extends '_base.html' %}
+{% load tailwind_filters %}
+
+{% block title %}
+    Detalle factura    
+{% endblock title %}
+
+{% block content %}
+    
+    <!-- {% for detalles in detalle   %}
+    {% endfor %}
+     -->
+
+    {<div>
+        <form method="POST">
+            {% csrf_token %}
+            {{servicios|crispy}}
+            <button type="submit" name="servicio">enviar</button> 
+        </form>
+    </div>
+    <div>
+        este es el total
+        {{total}}
+
+    </div>
+    <div>
+        este es el detalle de la factura
+        {{detalle}}
+    </div>
+    <div>
+a este usuario se le esta creando la factura
+        {{factura.usuario}}
+    </div><br><br><br><br>
+    <div>
+estos son mis productos
+        {{productos}}
+    </div>
+{% endblock content %}
+    
+    

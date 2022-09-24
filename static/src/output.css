@@ -1078,6 +1078,10 @@ html{
   border-width: 0;
 }
 
+.pointer-events-none{
+  pointer-events: none;
+}
+
 .visible{
   visibility: visible;
 }
@@ -1107,6 +1111,11 @@ html{
   right: 0px;
   bottom: 0px;
   left: 0px;
+}
+
+.inset-y-0{
+  top: 0px;
+  bottom: 0px;
 }
 
 .right-0{
@@ -1548,6 +1557,10 @@ html{
   justify-content: space-around;
 }
 
+.justify-evenly{
+  justify-content: space-evenly;
+}
+
 .gap-10{
   gap: 2.5rem;
 }
@@ -1766,6 +1779,10 @@ html{
 
 .bg-opacity-50{
   --tw-bg-opacity: 0.5;
+}
+
+.fill-current{
+  fill: currentColor;
 }
 
 .p-2\.5{

@@ -3,6 +3,7 @@
 {% load compress %}
 {% load static %}
 {% load account %}
+{% load humanize %}
 {% user_display user as user_display %}
 <!DOCTYPE html>
 <html lang="es">
@@ -67,10 +68,9 @@
 
 
 {% include 'componentes/javascript.html' %}
-
-{% block extrajs %}
     
-{% endblock extrajs %}
+    {% block extrajs %}
+    {% endblock extrajs %}
     
 
 </body>

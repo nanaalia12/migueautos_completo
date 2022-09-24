@@ -175,31 +175,55 @@
             {% endif %}
             {% csrf_token %}
             {{ vehiculo|crispy}}
+            <div id="div_id_condición" class="mb-3"> <label for="id_condición"
+                    class="block mb-2 text-sm font-bold text-gray-700">
+                    Condición<span class="asteriskField">*</span> </label>
+                <div class="mb-3">
+                    <div class="relative">
+                        <select id="select2"
+                            class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none"
+                            name="condición">
+                            <option value="E">Exelente (E)</option>
+                            <option value="R">Regular (R)</option>
+                            <option value="B" selected="">Bien (B)</option>
+                            <option value="M">Mal (M)</option>
+                        </select>
+                        <div
+                            class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
+                            <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z">
+                                </path>
+                            </svg> </div>
+                    </div>
+                </div>
+            </div>
             <div id="div_id_usuario" class="mb-3"> <label for="id_usuario"
                     class="block mb-2 text-sm font-bold text-gray-700">
                     Usuario<span class="asteriskField">*</span> </label>
                 <div class="mb-3">
                     <div class="relative">
-                        <select class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none"
+                        <select id="select2"
+                            class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none"
                             name="usuario">
                             <option value="">---------</option>
-                            
+
                             {% for usuarios in usuario_db %}
                             <option value="{{usuarios.id}}">{{usuarios.identificacion}} {{usuarios.nombre}}</option>
                             {% endfor %}
-                                
+
                         </select>
-                        
+
                     </div>
                 </div>
             </div>
+
             <div class="flex justify-center">
                 <button type="submit"
                     class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
                     value="Enviar informacion">
                     Agregar usuario
                 </button>
-               
+
             </div>
 
         </form>
@@ -317,3 +341,6 @@
 </div>
 
 {% endblock content %}
+{% block extrajs %}
+
+{% endblock extrajs %}

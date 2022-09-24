@@ -35,8 +35,8 @@ class Producto(models.Model):
     estado= models.CharField(max_length=10, choices=Estado.choices, verbose_name="Estado", default=Estado.ACTIVO)
     marca= models.ForeignKey(Marca, on_delete=models.SET_NULL, null=True, verbose_name=u"Marca")
     def __str__(self)-> str:
-        return 'N:%s / M:%s / T:%s / C:%s / S:%s' % (self.nombre,self.marca,self.stock)
+        return '%s - %s - %s - %s' % (self.nombre,self.marca,self.stock,self.categoria)
     def clean(self):
-        self.nombre= self.nombre.title()
+        self.nombre = self.nombre.title()
         
        

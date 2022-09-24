@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from registro.models import *
-
+from producto.models import *
 # Create your models here.
 
 class Factura(models.Model):
@@ -23,4 +23,29 @@ class Factura(models.Model):
         verbose_plural = "facturas"
         
 
+class Detalle(models.Model):
+    factura = models.ForeignKey(Factura,on_delete=models.SET_NULL,null=True, verbose_name='Factura')
+    producto = models.ForeignKey(Producto, on_delete=models.SET,verbose_name='Producto',null=True)
+    class Estado(models.TextChoices):
+        ABIERTA = 'Abierta', _('Abierta')
+        CERRADA = 'Cerrada', _('Cerrada')
+        ANULADA = 'Anulada', _('Anulada')
+    estado = models.CharField(max_length=10,choices=Estado.choices,verbose_name='Estado',default=Estado.ABIERTA)
+    cantidad_detalle = models.IntegerField(default=0)
+    total = models.IntegerField(default=0)
+    precio = models.IntegerField(default=0)
+    
+    def __str__(self) -> str:
+        return '%s'%(self.factura)
+    
+    class Meta:
+        db_table = 'Detalles_factura'
+        verbose_name = 'Detalle'
+    
         
+class Servicio(models.Model):
+    class Servi(models.TextChoices):
+        LATONERIA = 'Latoneria', _('Latoneria')
+        PINTURA = 'Pintura', _('Pintura')
+    servicio = models.CharField(max_length=10,choices=Servi.choices)
+    

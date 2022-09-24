@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+    
     
     'crispy_forms',#Etiqueta para recorer formularios en django
     'crispy_tailwind', #Formularios con estilos de tailwind    

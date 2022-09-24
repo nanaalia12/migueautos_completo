@@ -7,7 +7,7 @@
     <img src="{% static 'img/flecha-izquierda.png' %}" class="h-6 mr-3 sm:h-9" alt="">
   </button>
 <div class="container flex flex-wrap justify-center gap-10 mx-auto overflow-hidden">
-<div class="p-6 max-w-md bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+<div class="max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
     <img src="{% static 'img/logomigueautos.png' %}" class="h-6 mr-3 sm:h-9" alt="Migueautos Logo">
     <h2 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Copia de seguridad</h2>
 
@@ -16,7 +16,7 @@
             <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Exportar</h2>
 
 
-            <form action="{% url 'backup' tipo='D' %}" method="POST">
+            <form action="{% url 'backup' 'D' %}" method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
                     {% for modelo in ficheros %}
