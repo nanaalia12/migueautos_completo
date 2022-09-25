@@ -171,7 +171,9 @@ def producto(request):
     productt = Producto.objects.filter()
 
     if request.method == 'POST':
-        form = ProductoForm(request.POST)    
+        form = ProductoForm(request.POST, request.FILES)  
+        print(request.POST)
+        print(request.FILES)  
         producto_nombres= request.POST['nombre']
         if form.is_valid():
             nombre = form.cleaned_data['nombre']

@@ -20,7 +20,7 @@
             </h1>
             <!--Card-->
             <!-- form -->
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form|crispy}}
 
@@ -28,7 +28,7 @@
                     <button type="submit"
                         class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
                         value="Enviar informacion">
-                        Agregar usuario
+                        Agregar producto
                     </button>
 
                 </div>
@@ -67,6 +67,9 @@
                                         Estado
                                     </th>
                                     <th scope="col" class="px-6 py-4 text-sm font-medium text-black">
+                                        imagen
+                                    </th>
+                                    <th scope="col" class="px-6 py-4 text-sm font-medium text-black">
                                         Opciones
                                     </th>
                                 </tr>
@@ -89,6 +92,7 @@
                                         </a></td>
                                     <td>{{producto.precio}}</td>
                                     <td>{{producto.estado}}</td>
+                                    <td>{{producto.image}}</td>
                                     <td class="flex justify-around px-6 py-4 text-right">
                                         <a  href="{% url 'producto-editarproducto' producto.id %}"
                                             class="font-medium text-light-white md:hover:text-blue-700 dark:text-blue-500">
