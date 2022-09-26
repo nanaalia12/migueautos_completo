@@ -3,11 +3,15 @@
 {% load crispy_forms_tags %}
 {% block title %} Copia de seguridad {% endblock title %}
 {% block content %}
-<button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-0 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"  onclick = "history.back ()">
+<button data-tooltip-target="tooltip-volver" data-tooltip-trigger="hover" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-0 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"  onclick = "history.back ()">
     <img src="{% static 'img/flecha-izquierda.png' %}" class="h-6 mr-3 sm:h-9" alt="">
   </button>
+  <div id="tooltip-volver" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+    Volver
+    <div class="tooltip-arrow" data-popper-arrow></div>
+</div>
 <div class="container flex flex-wrap justify-center gap-10 mx-auto overflow-hidden">
-<div class="p-6 max-w-md bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+<div class="max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
     <img src="{% static 'img/logomigueautos.png' %}" class="h-6 mr-3 sm:h-9" alt="Migueautos Logo">
     <h2 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Copia de seguridad</h2>
 
@@ -16,7 +20,7 @@
             <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Exportar</h2>
 
 
-            <form action="{% url 'backup' tipo='D' %}" method="POST">
+            <form action="{% url 'backup' 'D' %}" method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
                     {% for modelo in ficheros %}
