@@ -43,9 +43,4 @@ class Detalle(models.Model):
         verbose_name = 'Detalle'
     
         
-class Servicio(models.Model):
-    class Servi(models.TextChoices):
-        LATONERIA = 'Latoneria', _('Latoneria')
-        PINTURA = 'Pintura', _('Pintura')
-    servicio = models.CharField(max_length=10,choices=Servi.choices)
     
