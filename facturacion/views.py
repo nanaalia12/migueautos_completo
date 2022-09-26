@@ -72,7 +72,7 @@ def detalle(request,pk):
                                 total= producto.precio_venta *  form.cleaned_data.get('cantidad_detalle'),                                                          
                                 factura=factura_u,               
                                 producto = producto,
-                                precioX= producto.precio_venta 
+                                precio= producto.precio_venta 
                         )
                         
                         
@@ -91,7 +91,7 @@ def detalle(request,pk):
                             total=0
                         
                         messages.success(request,f' se agregó {producto} a la factura correctamente')
-                        return redirect('factura-detalle', pk=pk)
+                        return redirect('detalle', pk=pk)
                     else:
                         anterior=Detalle.objects.filter(factura_id=factura_u.id,producto=request.POST['producto'])
                         
@@ -128,3 +128,138 @@ def detalle(request,pk):
         'servicios': form,
     }
     return render(request, "app-factura/detalle/detallefactura.html", context)
+
+
+def detalle_estado(request,pk,cantidad ):
+    titulo_pagina='producto'
+    u_detalles= Detalle.objects.get(id=pk)
+    factura_u= u_detalles.factura
+    detalles= Detalle.objects.filter(factura_id=factura_u.id)
+    accion_txt= f"el detalle {u_detalles.id} "
+   
+    if request.method == 'POST':
+        if (factura_u.tipofactura =="Venta"):
+            form= DetalleForm(request.POST)
+            Producto.objects.filter(id=u_detalles.producto_id).update(
+                stock=Producto.objects.get(id=u_detalles.producto_id).stock + int(cantidad),
+            )
+            Factura.objects.filter(id=factura_u.id).update(
+                        neto_pagar=0
+                        
+            )
+            u_detalles.delete()
+            messages.success(request,f'Detalle elminado correctamente ')
+            return redirect('factura-detalle',factura_u.id)
+        else:
+            form= DetalleForm(request.POST)
+            Producto.objects.filter(id=u_detalles.producto_id).update(
+                stock=Producto.objects.get(id=u_detalles.producto_id).stock - int(cantidad),
+            )
+            Factura.objects.filter(id=factura_u.id).update(
+                        neto_pagar=0          
+            )
+            u_detalles.delete()
+            messages.success(request,f'Detalle eliminado correctamente ')
+            return redirect('factura-detalle',factura_u.id)
+        
+    else:
+        
+        form=DetalleForm()
+    context={
+            "titulo_pagina": titulo_pagina,
+            "accion_txt":accion_txt,
+            "detalles": detalles,
+            "factura":factura_u,
+            "form":form,
+    }
+    return render(request, "app-factura/detalle/detalle-eliminar.html", context)
+
+
+def ver_factura(request,pk):
+    factura = Factura.objects.get(id=pk)
+    detalles_factura = Factura.objects.filter(factura_id=pk)
+    titulo_pag = f'Factura #{factura.id}'
+    context = {
+        'factura':factura,
+        'detalles':detalles_factura,
+        'titulo_pag':titulo_pag,
+        }
+    return render(request,"app-factura/factura/verfactura.html", context)
+    
+def factura_eliminar(request,pk):
+    titulo_pagina='Factura'
+    tfacturas= Factura.objects.all()
+    tfactura= Factura.objects.get(id=pk)
+    accion_txt= f" la factura {tfactura.id}"
+    if request.method == 'POST':
+        form = FacturaForm(request.POST)
+        Factura.objects.filter(id=pk).update(
+                    decision='Inactivo'
+                )
+        tfactura_usuario=  tfactura.usuario
+        messages.success(request,f'Factura {tfactura.id} anulada correctamente')
+        return redirect('factura-tfactura')
+                
+    else:
+        form:FacturaForm()
+    context={
+            "titulo_pagina": titulo_pagina,
+            "accion_txt":accion_txt,
+            "tfacturas": tfacturas,
+            
+    }
+    return render(request, "app-factura/factura/facturaeliminar.html", context)    
+    
+def factura_estado(request,pk, estado):
+
+    tfactura= Factura.objects.get(id=pk)
+    eliminacion= Detalle.objects.filter(factura=tfactura)
+    veridetalle= Detalle.objects.filter(factura=tfactura)
+    
+    estado_msj=""
+    estado_txt=""
+    if estado == "Abierta":
+        if not eliminacion.exists():
+            estado_txt= "Eliminar"
+            estado_msj= f"factura {tfactura.id}?"
+            if request.method == 'POST':
+                form = FacturaForm(request.POST)
+                
+                tfactura.delete()
+                messages.success(request,f'Factura {pk} eliminada correctamente')
+                return redirect('generar')
+            else:
+                form=FacturaForm()
+        else:
+            messages.warning(request,f'La factura {pk} no se puede eliminar, tiene productos registrados')
+            return redirect('generar')
+    elif estado == "Cerrada":
+        estado_txt= "Anular"
+        estado_msj= f"Factura {tfactura.id}, una vez anulada no se podrá restablecer."
+        if request.method == 'POST':
+            form = FacturaForm(request.POST)
+            Factura.objects.filter(id=pk).update(
+                        estado='Anulada'
+                    )
+            tfactura_usuario=  tfactura.usuario
+            messages.success(request,f'Factura {tfactura.id} anulada correctamente')
+            return redirect('generar')
+        else:
+            form=FacturaForm()
+    else:
+        if veridetalle.exists():
+            estado_txt= "Cerrar"
+            estado_msj= f"{estado_txt} La factura {tfactura.id}, una vez cerrada no se podrán agregar nuevos productos?"
+            if request.method == 'POST':
+                form = FacturaForm(request.POST)
+                Factura.objects.filter(id=pk).update(
+                            estado='Cerrada'
+                        )
+                tfactura_usuario=  tfactura.usuario
+                messages.success(request,f'Factura {tfactura.id} cerrada correctamente')
+                return redirect('factura-tfactura')
+            else:
+                form:FacturaForm()
+        else:
+            messages.warning(request,f'La factura {pk} no se puede cerrar porque esta vacia')
+            return redirect('factura-detalle', pk)
