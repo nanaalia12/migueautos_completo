@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from .models import Marca,Producto
-
+from django import forms
 
 class MarcaForm(ModelForm):
     class Meta:
@@ -22,4 +22,17 @@ class ProductoForm(ModelForm):
             pass
     class Meta:
         model= Producto
-        fields= ['categoria','nombre','precio', 'stock','marca'] 
+        fields= ['image','categoria','nombre','precio', 'stock','marca'] 
+        
+class DetalleForm(forms.Form):
+    cantidad_stock = forms.IntegerField(label='cantidad_stock')
+    def __init__(self, *args, **kwargs):
+        super(DetalleForm, self).__init__(*args, **kwargs)
+        self.fields['cantidad_stock'].widget.attrs['min'] = 1
+        
+    def clean_price(self):
+        price = self.cleaned_data['price']
+        if price < 1:
+            raise forms.ValidationError("Price cannot be less than 0.01")
+        return price
+

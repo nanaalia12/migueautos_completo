@@ -1,0 +1,34 @@
+{% extends '_base.html' %}
+
+{% block title %}
+    Agregar stock
+{% endblock title %}
+    
+{% block content %}
+    
+<div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <button>enviar</button>
+    </form>
+</div>
+<div>
+    a este producto se le va sumar el stock
+    {{producto.nombre}}
+</div>
+<div>
+    este es el precio del producto actualmente
+    {{producto.precio}}
+</div>
+<div>
+    Stock actual
+    {{total}}
+</div>
+<div>
+    valor de compras
+    {{valor}}
+</div>
+
+{% endblock content %}
+    

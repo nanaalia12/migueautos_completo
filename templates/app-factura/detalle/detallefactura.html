@@ -1,0 +1,85 @@
+{% extends '_base.html' %}
+{% load tailwind_filters %}
+
+{% block title %}
+    Detalle factura    
+{% endblock title %}
+
+{% block content %}
+    
+    <!-- {% for detalles in detalle   %}
+    {% endfor %}
+     -->
+
+        <div class="flex flex-wrap justify-center gap-2 mx-auto overflow-hidden">
+            
+                <h1 class="px-2 mb-2 font-sans text-xl font-bold text-center break-normal dark:text-white lg:mt-0 md:text-2xl">
+                    Registrar Vehículo
+                </h1>
+                <div class="container md:flex">
+                    <div class="w-1/4 px-4 mx-auto xl:container">
+                        <div class="flex flex-wrap mb-4">
+                            <div class="w-1/2 p-2 text-center bg-green-400">{{servicios|crispy}}</div>
+                            <div class="w-1/2 p-2 bg-green-500 4text-center">{{servicios|crispy}}</div>
+                            <div class="w-1/2 p-2 bg-green-500 4text-center">{{servicios|crispy}}</div>
+                            <div class="w-1/2 p-2 bg-green-500 4text-center">{{servicios|crispy}}</div> 
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap w-1/2 mb-4">
+                        
+                        <div class="block w-32 bg-red-300">
+                            Datos del cliente y la factura
+                            <p class="bg-red-700 ">tabla con las compras hechas</p>
+                            <p class="bg-red-500 ">total: {{total}}%</p>
+                            
+                        </div>
+                    </div>
+                        
+                  </div>
+                
+            </div>
+    </div>
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            {{servicios|crispy}}
+            <button type="submit" name="agregar">enviar</button>
+
+
+            <button type="submit" name="cerrar">
+                <a ></a>cerrar factura
+            </button>
+            
+            {% comment %}
+                
+            <!-- href="{% url 'detalle_eliminar_estado'  %}" -->
+            {% endcomment %}
+                
+        </form>
+    </div>
+    <div>
+        este es el total
+        {{total}}
+
+    </div>
+    <div>
+        este es el detalle de la factura
+
+        
+        {% for obj in detalle %}
+            {{obj.producto.nombre}}
+        {% endfor %}
+            
+        
+    </div>
+    <div>
+a este usuario se le esta creando la factura
+        {{factura.usuario}}
+    </div><br><br><br><br>
+    <div>
+estos son mis productos
+        {{productos}}
+    </div>
+{% endblock content %}
+    
+    

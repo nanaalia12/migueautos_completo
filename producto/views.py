@@ -2,7 +2,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.shortcuts import render
-
+from django.db.models import Sum
 
 from .forms import *
 from .models import *
@@ -171,7 +171,9 @@ def producto(request):
     productt = Producto.objects.filter()
 
     if request.method == 'POST':
-        form = ProductoForm(request.POST)    
+        form = ProductoForm(request.POST, request.FILES)  
+        print(request.POST)
+        print(request.FILES)  
         producto_nombres= request.POST['nombre']
         if form.is_valid():
             nombre = form.cleaned_data['nombre']
@@ -200,3 +202,30 @@ def producto(request):
         }
     
     return render(request,'app-producto/producto/crearproducto.html', context)
+
+
+def sumar_stock(request,pk):
+    producto = Producto.objects.get(id=pk)
+    
+    
+    if(Producto.objects.filter(id=pk).values("stock").annotate(total_definitivo=Sum(('stock'),output_field=models.IntegerField()))):
+        total= Producto.objects.filter(id=pk).values("stock").annotate(total_definitivo=Sum(('stock'),output_field=models.IntegerField()))[0]["total_definitivo"]
+    else:
+        total=0
+        
+    if request.method == 'POST':
+        form= DetalleForm(request.POST)
+        if form.is_valid():
+            cantidad_stock = form.cleaned_data["cantidad_stock"]
+            valor = cantidad_stock * producto.precio  
+            Producto.objects.filter(id=pk).update(stock=producto.stock + form.cleaned_data.get('cantidad_stock'))
+    else:
+        form = DetalleForm()
+        valor = 0
+    context={
+        'producto':producto,
+        'total':total,
+        'form':form,
+        'valor':valor,
+    }
+    return render(request,'app-producto/producto/sumar_stock.html',context)

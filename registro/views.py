@@ -31,10 +31,20 @@ def vehiculo(request): # se define la funcion para ver los vehiculos
     usuario_db = Usuario.objects.all() # se carga la base de datos para el select de usuario # se carga el formulario
     vehiculo = vehiculoForm(request.POST or None)
     if vehiculo.is_valid(): # si el formulario es valido
-        placa = request.POST.get('placa') 
-        vehiculo.save() # se guarda el formulario
+        aux = vehiculo.save() # se guarda el formulario
+        placa = request.POST.get('placa')
+        modelo = request.POST.get('modelo')
+        color = request.POST.get('color')
+        condición = request.POST.get('condición')
+        usuario = Usuario.objects.get(id=request.POST.get('usuario'))
+        Vehículo.objects.filter(id=aux.id).update(
+            placa=placa,
+            modelo=modelo,
+            color=color,
+            condición=condición,
+            usuario=usuario)
         messages.success(request,'¡Vehiculo %s ha sido registrado exitosamente!'%placa) # se muestra un mensaje de exito
-        return redirect('insumo') # se redirecciona a la url
+        return redirect('producto-crearproducto') # se redirecciona a la url
     else:
         print ('no entra')
     context = { # se define el contexto
