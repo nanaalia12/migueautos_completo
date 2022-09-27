@@ -120,6 +120,17 @@ WSGI_APPLICATION = 'miproyecto.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#         'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'migueautos',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#         'USER': 'root',
+#         'PASSWORD': 'aKIHOKO0603',
+#     }
+# }
+
 DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -127,10 +138,9 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': 'aKIHOKO0603',
+        'PASSWORD': '1122',
     }
 }
-
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",

@@ -177,8 +177,8 @@
                     Condición<span class="asteriskField">*</span> </label>
                 <div class="mb-3">
                     <div class="relative">
-                        <select id="select2"
-                            class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none"
+                        <select 
+                            class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none js-example-basic-single focus:outline-none"
                             name="condición">
                             <option value="E">Exelente (E)</option>
                             <option value="R">Regular (R)</option>
@@ -199,8 +199,8 @@
                     Usuario<span class="asteriskField">*</span> </label>
                 <div class="mb-3">
                     <div class="relative">
-                        <select id="select2"
-                            class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none"
+                        <select 
+                            class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none js-example-basic-single focus:outline-none"
                             name="usuario">
                             <option value="">---------</option>
 
@@ -338,4 +338,12 @@
     </div>
 </div>
 
+
 {% endblock content %}
+{% block extrajs %}
+<script>
+    $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
+
