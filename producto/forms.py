@@ -13,16 +13,16 @@ class ProductoForm(ModelForm):
         super(ProductoForm, self).__init__(*args, **kwargs)
         self.fields['precio'].widget.attrs['min'] = 1
         self.fields['stock'].widget.attrs['min'] = 1
-        self.fields['marca'].widget.attrs['min'] = 1
+        # self.fields['marca'].widget.attrs['min'] = 1
     def clean(self):
         nombre = self.cleaned_data['nombre']
-        marca = self.cleaned_data['marca']
+        # marca = self.cleaned_data['marca']
         categoria = self.cleaned_data['categoria']
-        if Producto.objects.filter(nombre=nombre, marca=marca, ).exists():
+        if Producto.objects.filter(nombre=nombre).exists():
             pass
     class Meta:
         model= Producto
-        fields= ['image','categoria','nombre','precio', 'stock','marca'] 
+        fields= ['image','categoria','nombre','precio', 'stock'] 
         
 class DetalleForm(forms.Form):
     cantidad_stock = forms.IntegerField(label='cantidad_stock')

@@ -167,6 +167,7 @@ def productoInactivo (request):
 
 def producto(request):
     usuario_c= Usuario.objects.exclude(estado="Inactivo")
+    marcas_db = Marca.objects.exclude(estado="Inactivo")
     titulo_pagina="Agregar Producto"
     productt = Producto.objects.filter()
 
@@ -174,19 +175,22 @@ def producto(request):
         form = ProductoForm(request.POST, request.FILES)  
         print(request.POST)
         print(request.FILES)  
+        
         producto_nombres= request.POST['nombre']
+        categoria = request.POST['categoria']
+        precio = request.POST['precio']
+        marca = request.POST['marca']
         if form.is_valid():
-            nombre = form.cleaned_data['nombre']
-            marca = form.cleaned_data['marca']
-
-            if Producto.objects.filter(nombre=nombre, marca=marca).exists():
+            producto_nombres= request.POST['nombre']
+            marca = request.POST['marca']
+            if Producto.objects.filter(nombre=producto_nombres,marca=marca).exists():
                 messages.warning(request,f'Ya hay un producto registrado con esas caracteristicas')
                 return redirect('producto-crearproducto')
             else:
                 aux= form.save()
                 Producto.objects.filter(id=aux.id).update(
                     precio_venta=aux.precio,
-                    
+                    marca=marca,
                 )
                 messages.success(request,f'Producto {producto_nombres} agregado correctamente')
                 return redirect('producto-crearproducto')
@@ -198,7 +202,8 @@ def producto(request):
         'base_datos':productt, 
         'form':form,  
         "titulo_pagina":titulo_pagina,
-        "usuario":usuario_c
+        "usuario":usuario_c,
+        "marcas_db": marcas_db
         }
     
     return render(request,'app-producto/producto/crearproducto.html', context)

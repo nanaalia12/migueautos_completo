@@ -6,7 +6,7 @@ from .models import *
 class FacturaForm(forms.ModelForm):
     class Meta: 
         model = Factura
-        fields = ['usuario', 'vehiculo']
+        fields = []
 
 class DetalleForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

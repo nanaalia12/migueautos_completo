@@ -177,13 +177,9 @@
                     Condición<span class="asteriskField">*</span> </label>
                 <div class="mb-3">
                     <div class="relative">
-<<<<<<< HEAD
                         <select
-=======
-                        <select 
->>>>>>> c3bd0b930a2348f05951e674b7816b90b5489eb4
                             class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none js-example-basic-single focus:outline-none"
-                            name="condición">
+                            name="condición" required>
                             <option value="E">Exelente (E)</option>
                             <option value="R">Regular (R)</option>
                             <option value="B" selected="">Bien (B)</option>
@@ -205,7 +201,7 @@
                     <div class="relative">
                         <select 
                             class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none js-example-basic-single focus:outline-none"
-                            name="usuario">
+                            name="usuario" required>
                             <option value="">---------</option>
 
                             {% for usuarios in usuario_db %}
@@ -342,10 +338,6 @@
     </div>
 </div>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c3bd0b930a2348f05951e674b7816b90b5489eb4
 {% endblock content %}
 {% block extrajs %}
 <script>
@@ -353,8 +345,4 @@
     $('.js-example-basic-single').select2();
 });
 </script>
-<<<<<<< HEAD
 {% endblock extrajs %}
-=======
-
->>>>>>> c3bd0b930a2348f05951e674b7816b90b5489eb4
