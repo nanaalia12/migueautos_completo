@@ -3,15 +3,11 @@
 {% load crispy_forms_tags %}
 {% block title %} Copia de seguridad {% endblock title %}
 {% block content %}
-<button data-tooltip-target="tooltip-volver" data-tooltip-trigger="hover" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-0 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"  onclick = "history.back ()">
+<button type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-0 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"  onclick = "history.back ()">
     <img src="{% static 'img/flecha-izquierda.png' %}" class="h-6 mr-3 sm:h-9" alt="">
   </button>
-  <div id="tooltip-volver" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-    Volver
-    <div class="tooltip-arrow" data-popper-arrow></div>
-</div>
-<div class="container flex flex-wrap justify-center gap-10 mx-auto overflow-hidden">
-<div class="max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+<div class="container flex flex-wrap justify-center gap-10 max-h-max  overflow-hidden">
+<div class="p-6 max-w-md bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
     <img src="{% static 'img/logomigueautos.png' %}" class="h-6 mr-3 sm:h-9" alt="Migueautos Logo">
     <h2 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Copia de seguridad</h2>
 
@@ -20,7 +16,7 @@
             <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Exportar</h2>
 
 
-            <form action="{% url 'backup' 'D' %}" method="POST">
+            <form action="{% url 'backup' tipo='D' %}" method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
                     {% for modelo in ficheros %}
@@ -32,12 +28,11 @@
                 <input class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" value="Generar Copia">
             </form>
 
-    </div>
+        </div>
         <div class="col">
             <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Importar</h2>
-            <form action="/backup/U/" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="csrfmiddlewaretoken" value="pX2KMwcvE0qEZ8gDvY7cBQSJyTzIHcEVqvlpDOXw99Os12rKOw7ODg4Fo6GRvHew"> 
-                
+            <form action="{% url 'backup' tipo='U' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %} 
                 <div id="div_id_nombre" class="control-group"> 
                     <label for="id_nombre" class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                 Nombre
@@ -60,8 +55,35 @@
                 </div>
             </form>
         </div>
-        
-    
+    </div>
+        <div class="col  p-6  max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 overflow-hidden  ">
+            <h2 class="px-2 mb-2 font-sans text-xl font-bold text-center break-normal dark:text-white lg:mt-0 md:text-2xl">Historial de Importes</h2>
+                <div class="py-4 sm:px-6 lg:px-8">
+
+                        <table id="tabla" class="min-w-full text-sm text-left text-gray-500 rounded-sm dark:text-gray-400">
+                            <thead  class="text-xs text-gray-700 uppercase bg-light-white dark:bg-gray-700 dark:text-gray-400">
+                                <tr >
+                                    <th scope="col" class="px-6 py-4 text-sm font-medium text-black">Nombre</th>
+                                    <th scope="col" class="px-6 py-4 text-sm font-medium text-black">Archivo</th>
+                                    <th scope="col" class="px-6 py-4 text-sm font-medium text-black">Fecha</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for backup in backups %}
+                                <tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="px-6 py-4">{{backup.nombre}} </td>
+                                    <td class="px-6 py-4">{{backup.archivo.url}} </td>
+                                    <td class="px-6 py-4">{{backup.fecha}} </td>
+                                </tr>
+                                {% endfor%}
+                            </tbody>
+                        </table>
+           
+                    
+                </div>
+           
+        </div>
     </div>
 </div>
 {% endblock content %}
