@@ -6,7 +6,7 @@
 <div class="container flex justify-center mx-auto">
   <div x-data="{ open: false }" @mouseleave="open = false" class="relative">
       <!-- Dropdown toggle button -->
-      <button @mouseover="open = true" class="flex items-center p-2 bg-transparent rounded-t">
+      <button  @mouseover="open = true" class="flex items-center p-2 bg-transparent rounded-t">
         <img src="{% static 'img/accessibility_white_24dp.svg'%}" alt=""/> 
       </button>
 
@@ -15,17 +15,29 @@
       x-transition:enter.duration.700ms
       x-transition:leave.duration.700ms
       class="absolute right-0 py-2 bg-transparent rounded-b shadow-xl">
-      <button type="button" id="aumentar">
+      <button data-tooltip-target="tooltip-aumentar" data-tooltip-trigger="hover" type="button" id="aumentar">
         <img class="w-25" src="{% static 'img/zoom-in-line.svg' %}" alt="" />
       </button>
-      <button type="button" id="disminuir">
+      <div id="tooltip-aumentar" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+        Aumentar
+        <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
+      <button data-tooltip-target="tooltip-disminuir" data-tooltip-trigger="hover" type="button" id="disminuir">
         <img class="w-25" src="{% static 'img/zoom_out_black_24dp.svg' %}" alt="" />
       </button>
-      <button type="button" id="restaurar">
+      <div id="tooltip-disminuir" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+        Disminuir
+        <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
+      <button data-tooltip-target="tooltip-restaurar" data-tooltip-trigger="hover" type="button" id="restaurar">
         <img class="w-25" src="{% static 'img/restart.svg' %}" alt="" />
       </button>
+      <div id="tooltip-restaurar" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+        Restaurar
+        <div class="tooltip-arrow" data-popper-arrow></div>
       </div>
   </div>
+</div>
 </div>
 <script type="text/javascript" charset="utf8" src="{% static 'js/cdn.alpine.min.js' %}"></script>
 <script type="text/javascript">

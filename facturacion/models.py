@@ -1,32 +1,46 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from registro.models import Usuario,Vehículo
-from insumo.models import Insumo,Servicio
+from registro.models import *
+from producto.models import *
 # Create your models here.
-class Generar(models.Model):
-    usuario = models.ForeignKey(Usuario, verbose_name="usuario",on_delete=models.SET_NULL, null=True)
-    vehiculo = models.ForeignKey(Vehículo, verbose_name="vehiculo",on_delete=models.SET_NULL, null=True)
-    fecha = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f'{self.usuario}'
+class Factura(models.Model):
+    usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE, verbose_name='usuario')
+    vehiculo = models.ForeignKey(Vehículo, on_delete=models.CASCADE, verbose_name='vehiculo')
+    valor = models.IntegerField(default=0, null=True, verbose_name='valor')
+    class Estado(models.TextChoices):
+        ABIERTA = 'Abierta', _('Abierta')
+        CERRADA = 'Cerrada', _('Cerrada')
+        ANULADA = 'Anulada', _('Anulada')
+    estado =models.CharField(max_length=10,choices=Estado.choices,verbose_name='estado',default=Estado.ABIERTA)
+    class Decision(models.TextChoices):
+        ACTIVA = 'Activa', _('Activa')
+        INACTIVA = 'Inactiva', _('Inactiva')
+    decision = models.CharField(max_length=10,choices=Decision.choices,verbose_name='decision',default=Decision.ACTIVA)
+    class META:
+        db_table = "facturas_factura"
+        verbose_name = "factura"
+        verbose_plural = "facturas"
+        
+
+class Detalle(models.Model):
+    factura = models.ForeignKey(Factura,on_delete=models.SET_NULL,null=True, verbose_name='Factura')
+    producto = models.ForeignKey(Producto, on_delete=models.SET,verbose_name='Producto',null=True)
+    class Estado(models.TextChoices):
+        ABIERTA = 'Abierta', _('Abierta')
+        CERRADA = 'Cerrada', _('Cerrada')
+        ANULADA = 'Anulada', _('Anulada')
+    estado = models.CharField(max_length=10,choices=Estado.choices,verbose_name='Estado',default=Estado.ABIERTA)
+    cantidad_detalle = models.IntegerField(default=0)
+    total = models.IntegerField(default=0)
+    precio = models.IntegerField(default=0)
     
-# class Agregarservicio(models.Model):
-#     servicio = models.ForeignKey(Servicio)
-
-class Carrodecompras(models.Model):
-    insumo = models.ForeignKey(Insumo, verbose_name="insumo",on_delete=models.SET_NULL, null=True)
-
-class Compras(models.Model):
-    factura = models.ForeignKey(Generar, verbose_name="factura",on_delete=models.SET_NULL, null=True)
-   
-    class Estado (models.TextChoices):
-        activa = 'Activo', _('Activo')
-        Completa= 'Completa', _('Completa')
-    estado = models.CharField(max_length=10, choices=Estado.choices,default=Estado.activa,verbose_name=u"Estado de factura")
-    class Tipodeservicio (models.TextChoices):
-        LATONERIA = 'Latoneria', _('Latoneria')
-        PINTURA= 'Pintura', _('Pintura')
-    tipodeservicio = models.CharField(max_length=10, choices=Tipodeservicio.choices, verbose_name=u"Seleccione el tipo de servicio")
+    def __str__(self) -> str:
+        return '%s'%(self.factura)
     
+    class Meta:
+        db_table = 'Detalles_factura'
+        verbose_name = 'Detalle'
+    
+        
     

@@ -1,28 +1,12 @@
-from importlib.resources import path
 
-
-from .views import *
 from django.urls import path
-
+from .views import *
 
 urlpatterns = [
-    
-    path ('generar/',generar_factura,name='generar_factura'),
-    path('ver/',carrito, name="factura"),
-    
-    
-    path('compras/', tiendas, name="clean_shop"),
-    path('compras/<int:pk>', tienda, name="Tienda"),
+    path('generar/', factura, name='generar'),
+    path('estado/<int:pk>/<str:estado>/', factura_estado, name='factura_estado'),
     
     
-    path('agregar/<int:producto_id>/', agregar_producto, name="Add"),
-    path('eliminar/<int:producto_id>/', eliminar_producto, name="Del"),
-    path('restar/<int:producto_id>/', restar_producto, name="Sub"),
-    path('limpiar/', limpiar_carrito, name="CLS"),
-    path('limpiar/index', limpiar_factura, name="clsindex"),
-    
-    # path('ver/<int:id>',add_cart, name="Tienda"),
-    
-    
-    
-    ]
+    path('detalle/<int:pk>/generada',detalle, name='detalle'),
+    path('detalle-estado/eliminar/<int:pk>/<str:cantidad>', detalle_estado, name='detalle_eliminar_estado'),
+]
