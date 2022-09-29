@@ -1129,7 +1129,7 @@ html{
 .left-0{
   left: 0px;
 }
-
+.left-
 .top-3{
   top: 0.75rem;
 }
@@ -1141,13 +1141,18 @@ html{
 .right-2{
   right: 0.5rem;
 }
-
+.right-10{
+  right: 1.5rem;
+}
 .bottom-\[60px\]{
   bottom: 60px;
 }
 
 .bottom-0{
   bottom: 0px;
+}
+.bottom-14{
+  bottom: 7rem; 
 }
 
 .z-10{

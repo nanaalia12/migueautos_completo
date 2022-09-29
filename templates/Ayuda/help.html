@@ -3,59 +3,57 @@
 {% block title %} Manual de ayuda {% endblock title %}
 {% block content %}
 
-    <div class="container mx-auto">
-        <div class="text-center">
-            <h1 class="pt-5 text-3xl font-bold">
-                <span class=" dark:text-white text-sky-500">Manual de ayuda</span>
-                
-            </h1>
-            <p class="pt-5 text-3xl font-display">
-                        <span class="dark:text-text-gray-700 ">Bienvenido usuario, este espacio esta diseñado para mostrar el correcto funcionamiento de migueautos :D</span>
-                    </p>
-            </div>
-            
-            <div class="container flex flex-wrap justify-center gap-6 px-4 pt-10 pb-5 mx-auto ">
-            
-                <div  class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md max-w hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                        
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Lorem ipsum dolor sit amet.</h5>
-                        <p class="font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, eum!.</p>
-                    
-                    </div>
-                
-                
-                    <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Lorem ipsum dolor sit amet.</h5>
-                        <p class="font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, eum!.</p>
-                    </div>
-                
-                
-            
-                <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md max-w hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Lorem ipsum dolor sit amet.</h5>
-                        <p class="font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, eum!.</p>
-                </div>
-            
-            
-            
-                <div href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Lorem ipsum dolor sit amet.</h5>
-                    <p class="font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, eum!.</p>
-            </div>
-            
-                <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md max-w hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Lorem ipsum dolor sit amet.</h5>
-                    <p class="font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, eum!.</p>
-            </div>
-            
-                <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Lorem ipsum dolor sit amet.</h5>
-                        <p class="font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, eum!.</p>
-                </div>
-            
-           
-          
-            
-        </div>
+<div class="container mx-auto">
+    <div class="text-center">
+        <h1 class="pt-5 text-3xl font-bold">
+            <span class=" dark:text-white text-sky-500">Manual de ayuda</span>  
+        </h1>
+        <p class="pt-5 text-3xl font-display">
+                    <span class="dark:text-text-gray-700 ">Bienvenido usuario, este espacio esta diseñado para mostrar el correcto funcionamiento de migueautos :D</span>
+                </p>
     </div>
+        
+    <div class="block p-6 grid grid-cols-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        
+        <div  class="block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h5 class="mb-2 text-1xl text-center font-bold tracking-tight text-gray-900 dark:text-white">Como ingresar a los módulos "Usuario, Vehículo,etc..".</h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">Lo primero es iniciar sesión o no podrá ingresar al sistema, una vez iniciada la sesión empieza a registrar a un usuario, registra el vehículo de ese usuario, los productos que gastó en ese vehículo y luego se genera la factura, allí puede seguir agregando productos.</p>
+            
+            <img class="p-8 rounded-t-lg" src="{% static 'img/Ingreso a módulos.png' %}" alt=""></img>
+        </div>       
+        <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h5 class="mb-2 text-1xl text-center font-bold tracking-tight text-gray-900 dark:text-white">Tema</h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">Tenemos un interruptor para que cambie el tema "dando click" a la luna o al sol y así poder cambiar el tema de oscuro a claro y viceversa. </p>
+            <img class="w-15" src="{% static 'img/Tema.png' %}" alt=""></img>
+        </div>
+        <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md max-w hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h5 class="mb-2 text-1xl text-center font-bold tracking-tight text-gray-900 dark:text-white">Botón de accesibilidad.</h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">Tenemos un botón de accesibilidad, allí podemos aumentar, disminuir o restaurar la pagina solo dando click a cualquier opción.</p>
+            <img class="w-15" src="{% static 'img/accesibilidad.png' %}" alt=""></img>
+        </div>
+
+    
+    
+    
+        <div href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h5 class="mb-2 text-1xl text-center font-bold tracking-tight text-gray-900 dark:text-white">Flecha hacia la izquierda</h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">Esta opción está en todos los módulos, con esa flecha podemos regresar o volver a la página anterior.</p>
+            <img class="w-15" src="{% static 'img/flecha devolver.jpg' %}" alt=""></img>
+        </div>
+    
+    
+        <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md max-w hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h5 class="mb-2 text-1xl text-center font-bold tracking-tight text-gray-900 dark:text-white">Opciones</h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">En opciones de Usuario y Vehículo podemos activar, inactivar y editar un usuario o un vehículo y en opciones de una marca o un producto podemos editar o eliminar una marca o un producto.</p>
+            <img class="w-15" src="{% static 'img/editar u-v.png.jpg' %}" alt=""></img>
+            <img class="w-15" src="{% static 'img/activar-inac u-v.jpg' %}" alt=""></img>
+        </div>
+        <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h5 class="mb-2 text-1xl text-center font-bold tracking-tight text-gray-900 dark:text-white">Generar reportes</h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">En todos los módulos podemos generar reportes, ya sea en excel, pdf o impreso</p>
+            <img class="w-15" src="{% static 'img/reportes.png' %}" alt=""></img>
+    
+        </div>  
+    </div>
+</div>
 {% endblock content %}
