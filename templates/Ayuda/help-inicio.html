@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+{% load static %}
+{% block title %} Manual de ayuda {% endblock title %}
+{% block content %}
+    <div class="">
+        <div class="text-center">
+            <h1 class="pt-5 text-2xl font-bold">
+                <span class=" dark:text-white text-sky-500">Manual de ayuda</span>
+                
+            </h1>
+            <p class="pt-5 text-3xl font-display">
+                        <span class="dark:text-text-gray-700 ">Bienvenido usuario, aquí le explicamos como ingresar a nuestro sistema.</span>
+                    </p>
+            </div>
+            
+            <div class="block p-6 grid grid-cols-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        
+            
+                <div  class="blockmax-w-sm  p-6 bg-white border border-gray-200 rounded-lg shadow-md max-w hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        
+                        <h5 class="mb-2 text-1xl text-center font-bold tracking-tight text-gray-900 dark:text-white">Como acceder al sistema.</h5>
+                        <p class="font-normal text-gray-700 dark:text-gray-400">Si no tiene un usuario creado debe registrarse, selecciona en registrarse, ingresa un correo válido y una contraseña que tenga mayúsculas,minúsculas y números ya que es obligatorio, a su correo le enviaremos un link de confirmación para que pueda iniciar sesión.</p>
+                        <img class="w-20" src="{% static 'img/registrarse.jpg' %}" alt=""></img>
+                    </div>
+                
+                
+                    <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        <h5 class="mb-2 text-1xl text-center font-bold tracking-tight text-gray-900 dark:text-white">Como cambiar contraseña si se le olvidó.</h5>
+                        <p class="font-normal text-gray-700 dark:text-gray-400">Selecciona en "olvidó su contraseña" e ingresa su correo electronico válido, selecciona en enviar e-mail y ahí le enviamos un link para que restablezca su contraseña.</p>
+                        <div class="grid grid-cols-2 max-w-sm ">
+                        <img class="w-20" src="{% static 'img/restablecer contrase.jpeg' %}" alt=""></img>
+                        <img class="w-20" src="{% static 'img/restablecer  contraseña.png' %}" alt=""></img>
+                        </div>
+                    </div>
+                    
+                    
+           
+          
+            
+        </div>
+    </div>
+{% endblock content %}
