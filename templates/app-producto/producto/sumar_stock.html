@@ -1,34 +1,55 @@
 {% extends '_base.html' %}
-
+{% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
     Agregar stock
 {% endblock title %}
     
 {% block content %}
-    
-<div>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{form}}
-        <button>enviar</button>
-    </form>
-</div>
-<div>
-    a este producto se le va sumar el stock
-    {{producto.nombre}}
-</div>
-<div>
-    este es el precio del producto actualmente
-    {{producto.precio}}
-</div>
-<div>
-    Stock actual
-    {{total}}
-</div>
-<div>
-    valor de compras
-    {{valor}}
-</div>
+<button data-tooltip-target="tooltip-volver" data-tooltip-trigger="hover" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-0 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"  onclick = "history.back ()">
+    <svg class="h-8 mr-3 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"></path></svg>
+</button>
+<div id="tooltip-volver" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+    Volver
+    <div class="tooltip-arrow" data-popper-arrow></div>
+</div> 
 
+<div class="container flex flex-wrap justify-center gap-10 max-h-max overflow-hidden">
+    
+    <div class="p-6  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <img class="px-2 ml-24  w-20 h-20 rounded h-8 mr-2 mt-auto" src="{% static 'img/logomigueautos.png' %}" alt="logo">
+        <h1 class="px-2 mb-2 font-sans text-xl font-bold text-center break-normal dark:text-white lg:mt-0 md:text-2xl">
+            Agregar cantidad 
+        </h1>
+
+        <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <div class="flex justify-center">
+                <button type="submit"
+                    class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    value="Enviar informacion">Agregar
+                </button>
+            </div>
+
+        </form>
+        </div>
+        
+        <div class="text-gray-700 dark:text-white">
+            Al producto {{producto.nombre}} se le va sumar esta cantidad
+           
+        </div>
+        <div class="text-gray-700 dark:text-white" >
+            Precio actual del producto {{producto.nombre}} : {{producto.precio}}
+        </div>
+        <div class="text-gray-700 dark:text-white">
+            Cantidad actual del producto {{producto.nombre}} : {{total}}
+        </div>
+        <div class="text-gray-700 dark:text-white">
+            Valor de compras : {{valor}}
+        </div>
+    </div>
+</div>
 {% endblock content %}
     
