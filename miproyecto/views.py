@@ -82,3 +82,6 @@ def backup(request,tipo):
 def help(request):
     context= {}
     return render(request, 'Ayuda/help.html', context)
+def help2(request):
+    context= {}
+    return render(request, 'Ayuda/help-inicio.html', context)
