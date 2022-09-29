@@ -9,7 +9,7 @@ class usuarioForm(forms.ModelForm):
 class vehiculoForm(forms.ModelForm):
     class Meta:
         model = Vehículo
-        fields = ['placa','modelo','color','condición']
+        fields = ['placa','modelo','color']
 
              
             

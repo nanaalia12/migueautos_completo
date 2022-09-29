@@ -24,7 +24,6 @@ def index(request):
     'hora': formatedHour,
     }
     return render(request, 'index.html', context)
-
 def exportar_datos():
     fecha=date.today()
     os.system(f"mysqldump --add-drop-table --column-statistics=0 -u root --password=0000 migueautos> static/backup/BKP_{fecha}.sql")

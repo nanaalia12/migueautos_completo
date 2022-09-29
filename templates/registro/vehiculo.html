@@ -6,12 +6,12 @@
 <button data-tooltip-target="tooltip-volver" data-tooltip-trigger="hover" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-0 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"  onclick = "history.back ()">
     <img src="{% static 'img/flecha-izquierda.png' %}" class="h-6 mr-3 sm:h-9" alt="">
   </button>
-  <div id="tooltip-volver" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+  <div id="tooltip-volver" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
     Volver
     <div class="tooltip-arrow" data-popper-arrow></div>
 </div>
-<div class="container flex flex-wrap justify-center gap-10 max-h-max overflow-hidden">
-<div class="p-6  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+<div class="container flex flex-wrap justify-center gap-10 overflow-hidden max-h-max">
+<div class="p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
         
         <h1 class="px-2 mb-2 font-sans text-xl font-bold text-center break-normal dark:text-white lg:mt-0 md:text-2xl">
             Registrar Vehículo
@@ -177,9 +177,9 @@
                     Condición<span class="asteriskField">*</span> </label>
                 <div class="mb-3">
                     <div class="relative">
-                        <select 
+                        <select
                             class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none js-example-basic-single focus:outline-none"
-                            name="condición">
+                            name="condición" required>
                             <option value="E">Exelente (E)</option>
                             <option value="R">Regular (R)</option>
                             <option value="B" selected="">Bien (B)</option>
@@ -201,7 +201,7 @@
                     <div class="relative">
                         <select 
                             class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none js-example-basic-single focus:outline-none"
-                            name="usuario">
+                            name="usuario" required>
                             <option value="">---------</option>
 
                             {% for usuarios in usuario_db %}
@@ -227,14 +227,14 @@
     </div>
     </div>
 
-    <div class="col p-6 max-w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
+    <div class="max-w-full p-6 overflow-hidden bg-white border border-gray-200 rounded-lg shadow-md col dark:bg-gray-800 dark:border-gray-700">
         <!-- table -->
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-4 sm:px-6 lg:px-8">
                 <div class="overflow-hidden">
                     <table id="tabla" class="min-w-full text-sm text-left text-gray-500 rounded-sm dark:text-gray-400">
                         <thead
-                            class="text-xs text-gray-700  bg-light-white dark:bg-gray-700 dark:text-gray-400">
+                            class="text-xs text-gray-700 bg-light-white dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-4 text-sm font-medium text-black">
                                     Placa
@@ -338,7 +338,6 @@
     </div>
 </div>
 
-
 {% endblock content %}
 {% block extrajs %}
 <script>
@@ -346,4 +345,4 @@
     $('.js-example-basic-single').select2();
 });
 </script>
-
+{% endblock extrajs %}

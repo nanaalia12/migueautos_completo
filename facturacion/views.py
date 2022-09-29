@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.db.models import Sum
 from django.db import models
 
+from registro.views import usuario
+
 from .forms import *
 from .models import *
 from registro.models import *
@@ -14,24 +16,22 @@ from registro.models import *
 
 def factura(request):
     titulo_pag = 'Creando factura'
-    usuarios=Usuario.objects.all()
+    usuarios= Usuario.objects.all()
     vehiculos = Vehículo.objects.all()
     facturas = Factura.objects.all()
-    
+
     if request.method == 'POST':
         form = FacturaForm(request.POST)
-        if Factura.objects.filter(usuario=request.POST['usuario'],vehiculo=request.POST['vehiculo'],estado="Abierta").exists():
+        if Factura.objects.filter(usuario_id= request.POST['usuario '],vehiculo_id= request.POST['vehiculo'],).exists():
             form = FacturaForm()
             messages.warning(request,f'Ya hay una factura creada de ese usuario')
             return redirect('generar')
-        
         else:
             if form.is_valid():
-                usuario= Usuario.objects.get(id=request.POST['usuario']),
-                vehiculo = Vehículo.objects.get(id = request.POST['vehiculo'])
+               
                 aux= Factura.objects.create(
-                    vehiculo=vehiculo,
-                    usuario= usuario[0],
+                    vehiculo_id= request.POST['vehiculo'],
+                    usuario_id= request.POST['usuario '],
                 )
                 messages.success(request,f'Factura agregada correctamente') 
                 return redirect('detalle',aux.id)
@@ -52,6 +52,8 @@ def detalle(request,pk):
     detalles= Detalle.objects.filter(factura_id=pk)
     factura_u=Factura.objects.get(id=pk)
     productos = Producto.objects.filter(estado='Activo')
+    titulo_pag = f'Agregando productos a la factura #{factura_u.id}'
+    valor = 0
     #Suma los precios y da un total
     if(Detalle.objects.filter(factura_id=factura_u.id).values("factura").annotate(total_definitivo=Sum(('total'),output_field=models.IntegerField()))):
         total= Detalle.objects.filter(factura_id=factura_u.id).values("factura").annotate(total_definitivo=Sum(('total'),output_field=models.IntegerField()))[0]["total_definitivo"]
@@ -63,6 +65,7 @@ def detalle(request,pk):
         form= DetalleForm(request.POST)
         if form.is_valid():    
             producto= Producto.objects.get(id=request.POST['producto'])
+            valor = request.POST['cantidad_detalle'] * producto.precio
             if(producto.stock >= int(request.POST['cantidad_detalle'])):
                     existe= Detalle.objects.filter(factura_id=factura_u.id,producto=producto)
                     if len(existe) == 0: 
@@ -126,6 +129,8 @@ def detalle(request,pk):
         'factura':factura_u,
         'productos':productos,
         'servicios': form,
+        "titulo_pag":titulo_pag,
+        'valor': valor
     }
     return render(request, "app-factura/detalle/detallefactura.html", context)
 
@@ -215,7 +220,7 @@ def factura_estado(request,pk, estado):
     tfactura= Factura.objects.get(id=pk)
     eliminacion= Detalle.objects.filter(factura=tfactura)
     veridetalle= Detalle.objects.filter(factura=tfactura)
-    
+    titulo_pagina='Factura'
     estado_msj=""
     estado_txt=""
     if estado == "Abierta":
@@ -233,7 +238,7 @@ def factura_estado(request,pk, estado):
         else:
             messages.warning(request,f'La factura {pk} no se puede eliminar, tiene productos registrados')
             return redirect('generar')
-    elif estado == "Cerrada":
+    elif estado == "C0errada":
         estado_txt= "Anular"
         estado_msj= f"Factura {tfactura.id}, una vez anulada no se podrá restablecer."
         if request.method == 'POST':
@@ -263,3 +268,10 @@ def factura_estado(request,pk, estado):
         else:
             messages.warning(request,f'La factura {pk} no se puede cerrar porque esta vacia')
             return redirect('factura-detalle', pk)
+    context={
+        "titulo_pagina": titulo_pagina,
+        "estado_msj":estado_msj,
+        "estado_txt":estado_txt,
+           
+    }
+    return render(request, "app-factura/factura/factura-est     ado.html", context)
