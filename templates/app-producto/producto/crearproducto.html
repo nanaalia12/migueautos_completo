@@ -128,7 +128,12 @@
                                     </a></td>
                                 <td>{{producto.precio}}</td>
                                 <td>{{producto.estado}}</td>
-                                <td>{{producto.image}}</td>
+                                
+                                
+                                    
+                                <td>
+                                    <img src="{{ producto.get_image }}" class="block mx-auto img-responsive" style="width: 50px; height: 50px;" alt="imagen-producto">
+                                    </td>
                                 <td class="flex justify-around px-6 py-4 text-right">
                                     <a href="{% url 'producto-editarproducto' producto.id %}"
                                         class="font-medium text-light-white md:hover:text-blue-700 dark:text-blue-500">

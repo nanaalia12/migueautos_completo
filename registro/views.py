@@ -147,7 +147,7 @@ def editarUsuario(request,id): # se define la funcion para editar un usuario
     formulario = usuarioForm(request.POST or None, request.FILES or None, instance=edit_user) # se carga el formulario
     if formulario.is_valid() and request.method == 'POST': # si el formulario es valido y el metodo es post
         formulario.save() # se guarda el formulario
-        messages.success(request, '¡Usuario %s ha sido editado exitosamente!' %edit_user.nombre) # se muestra un mensaje de exito
+        messages.sucvbcess(request, '¡Usuario %s ha sido editado exitosamente!' %edit_user.nombre) # se muestra un mensaje de exito
         return redirect('usuario') # se redirecciona a la url
     context = { # se define el contexto
         'formulario': formulario,
@@ -165,7 +165,19 @@ def editarVehiculo(request,id): # se define la funcion para
     usuario_db = Usuario.objects.all() # se carga la base de datos para el select de usuario 
 
     if formulario_vehiculo.is_valid() and request.method == 'POST': # si el formulario es valido y el metodo es post
-        formulario_vehiculo.save() # se guarda el formulario
+        aux = formulario_vehiculo.save() # se guarda el formulario
+        placa = request.POST.get('placa')
+        modelo = request.POST.get('modelo')
+        color = request.POST.get('color')
+        condición = request.POST.get('condición')
+        usuario = Usuario.objects.get(id=request.POST.get('usuario'))
+        Vehículo.objects.filter(id=aux.id).update(
+            placa=placa,
+            modelo=modelo,
+            color=color,
+            condición=condición,
+            usuario=usuario)
+         # se guarda el formulario
         messages.success(request, '¡Vehiculo %s ha sido editado exitosamente!' %edit_vehiculo.placa) # se muestra un mensaje de exito
         return redirect('vehiculo') # se redirecciona a la url
     context={ # se define el contexto
