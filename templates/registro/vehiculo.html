@@ -180,7 +180,7 @@
                         <select
                             class="block w-full px-4 py-2 leading-normal text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none js-example-basic-single focus:outline-none"
                             name="condición" required>
-                            <option value="E">Exelente (E)</option>
+                            <option value="E">Excelente (E)</option>
                             <option value="R">Regular (R)</option>
                             <option value="B" selected="">Bien (B)</option>
                             <option value="M">Mal (M)</option>
@@ -258,6 +258,12 @@
                                     Usuario
                                 </th>
                                 <th scope="col" class="px-6 py-4 text-sm font-medium text-black">
+                                    Fecha de creación
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-sm font-medium text-black">
+                                    Fecha de última modificación
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-sm font-medium text-black">
                                     Opciones
                                 </th>
                             </tr>
@@ -276,6 +282,8 @@
                                 <td class="px-6 py-4">{{vehiculo.condición}}</td>
                                 <td class="px-6 py-4">{{vehiculo.estado}}</td>
                                 <td class="px-6 py-4">{{vehiculo.usuario}}</td>
+                                <td class="px-6 py-4">{{vehiculo.date_created}}</td>
+                                <td class="px-6 py-4">{{vehiculo.date_updated}}</td>
                                 <td class="flex justify-around px-6 py-4 text-right">
                                     {% comment %} Editar {% endcomment %}
 
